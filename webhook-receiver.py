@@ -118,7 +118,7 @@ if __name__ == '__main__':
     server_info_messages = []
 
     logging.basicConfig(level=args.log, format='%(levelname)s - %(message)s')
-    server_info_messages.append(f'log level:\t{args.log}')
+    server_info_messages.append(f'log level:\t\t{args.log}')
 
     app.add_routes(routes)  # add routes
 
@@ -128,9 +128,9 @@ if __name__ == '__main__':
 
     if args.websocket:
         app.add_routes([web.get('/ws', on_ws_connection)])  # add webdocket route
-        server_info_messages.append(f'websocket enabled at:\t\tws://{args.host}:{args.port}/ws')
+        server_info_messages.append(f'websocket enabled at:\tws://{args.host}:{args.port}/ws')
 
-    server_info_messages.append(f'API Key:\t\t{args.api_key}')
+    server_info_messages.append(f'API Key:\t\t\t{args.api_key}')
 
     print_startup_message(server_info_messages)
 

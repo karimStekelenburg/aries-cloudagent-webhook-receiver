@@ -79,11 +79,11 @@ When you run the `webhook-receiver`, it will print the following message:
 ```bash
 INFO - no api-key provided, generating one..
 
-INFO - log level:       INFO
-INFO - websocket enabled at:            ws://0.0.0.0:8080/ws
-INFO - API Key:         6533714c-2c0a-40e7-93a3-41ae60f348d7
+INFO - log level:               INFO
+INFO - websocket enabled at:    ws://0.0.0.0:8080/ws
+INFO - API Key:                 55c56521-df27-4284-a71b-04501cd49c5b
 
 ======== Running on http://0.0.0.0:8080 ========
 (Press CTRL+C to quit)
 ```
-Copy th printed address (in this case `http://0.0.0.0:8080`) and pass it to a ACA-Py instance as the `--webhook-url` argument. All webhook requests made by ACA-Py will now be directed towards the webhook-receiver. Your Controller instance can now fetch the messages by calling `http://0.0.0.0:8080/new-messages` or subscribe to the websocket interface at `http://0.0.0.0:8080/ws`. **Please note** that both methods require the `Authorization` request header to be set to the webhook-receivers API key (in this case `6533714c-2c0a-40e7-93a3-41ae60f348d7`).
+Copy th printed address (in this case `http://0.0.0.0:8080`) and pass it to a ACA-Py instance as the `--webhook-url` argument. All webhook requests made by ACA-Py will now be directed towards the webhook-receiver. Your Controller instance can now fetch the messages by calling `http://0.0.0.0:8080/new-messages` or subscribe to the websocket interface at `http://0.0.0.0:8080/ws`. **Please note** that both methods require the `Authorization` request header to be set to the webhook-receivers API key (in this case `55c56521-df27-4284-a71b-04501cd49c5b`).
