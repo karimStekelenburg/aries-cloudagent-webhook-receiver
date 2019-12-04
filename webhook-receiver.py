@@ -75,7 +75,7 @@ if __name__ == '__main__':
 
     # CLI Argument Setup
     parser = argparse.ArgumentParser(
-        prog='aca-py webhook receiver',
+        prog='webhook-receiver',
         description="collects and cache's aca-py webhook calls until requested by controller."
         )
     parser.add_argument(

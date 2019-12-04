@@ -54,3 +54,17 @@ source ./webhook-receiver-env/bin/activate
 # install dependencies
 pip install -r requirements.txt
 ```
+
+## Usage
+
+```
+usage: webhook-receiver [-h] [-c] [--host HOST] [--port PORT]
+
+collects and cache's aca-py webhook calls until requested by controller.
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -c, --collect         test
+  --host HOST, -H HOST
+  --port PORT, -p PORT
+```
