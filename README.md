@@ -11,7 +11,13 @@ Whenever a client opens a websocket connection, **all** in-memory messages that 
 ## Setup
 
 ### Docker Compose
-The `docker-compose.yml` file contains a Alice - Faber test setup where both Alice and Faber have their own Webhook Receiver instance. Just run `docker-compose build && docker-compose up`.
+The `docker-compose.yml` file contains a Alice - Faber test setup where both Alice and Faber have their own Webhook Receiver instance. Just run:
+```bash
+docker-compose build
+docker-compose run
+# and when you're done
+docker-compose down
+```
 
 You can now connect to the various components through the following adresses:
 
