@@ -1,0 +1,57 @@
+version: '3'
+services:
+  faber-aca-py:
+    image: bcgovimages/aries-cloudagent:py36-1.11-1_0.3.5
+    ports:
+      - 7002:7002
+      - 7000:7000
+      - 7001:7001
+    depends_on: 
+      - faber-webhook-interceptor
+    command: ["start", 
+                "--endpoint", "http://faber-aca-py:7000", 
+                "--admin", "0.0.0.0", "7002", 
+                "--admin-insecure-mode", 
+                "--webhook-url", "http://faber-webhook-interceptor:8080",
+                "-l", "Faber Agent", 
+                "--inbound-transport", "http", "0.0.0.0", "7000", 
+                "--inbound-transport", "ws", "0.0.0.0", "7001", 
+                "--outbound-transport", "http", 
+                "--outbound-transport", "ws", 
+                "--auto-accept-invites", 
+                "--auto-accept-requests"
+                ]
+  alice-aca-py:
+    image: bcgovimages/aries-cloudagent:py36-1.11-1_0.3.5
+    ports:
+      - 8002:8002
+      - 8000:8000
+      - 8001:8001
+    depends_on: 
+      - alice-webhook-interceptor
+    command: ["start", 
+                "--endpoint", "http://alice-aca-py:8000", 
+                "--admin", "0.0.0.0", "8002", 
+                "--admin-insecure-mode",
+                "--webhook-url", "http://alice-webhook-interceptor:8080",
+                "-l", "Alice Agent", 
+                "--inbound-transport", "http", "0.0.0.0", "8000", 
+                "--inbound-transport", "ws", "0.0.0.0", "8001", 
+                "--outbound-transport", "http", 
+                "--outbound-transport", "ws", 
+                "--auto-accept-invites", 
+                "--auto-accept-requests"
+                ]
+  faber-webhook-interceptor:
+    build: .
+    ports: 
+      - 7080:8080
+    expose: 
+      - 8080
+  alice-webhook-interceptor:
+    build: .
+    ports: 
+      - 8080:8080
+    expose: 
+      - 8080
+  
