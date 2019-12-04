@@ -58,15 +58,20 @@ pip install -r requirements.txt
 ## Usage
 
 ```
-usage: webhook-receiver [-h] [-c] [--host HOST] [--port PORT]
+usage: webhook-receiver [-h] [-w] [-l {CRITICAL,ERROR,WARNING,INFO,DEBUG}]
+                        [--host HOST] [--port PORT]
 
 collects and cache's aca-py webhook calls until requested by controller.
 
 optional arguments:
   -h, --help            show this help message and exit
-  -c, --collect         test
+  -w, --websocket       when passed, it will expose a websocket interface at
+                        http://HOST:PORT/ws
+  -l {CRITICAL,ERROR,WARNING,INFO,DEBUG}, --log {CRITICAL,ERROR,WARNING,INFO,DEBUG}
+                        the log level
   --host HOST, -H HOST
   --port PORT, -p PORT
+
 ```
 
 When you run the `webhook-receiver`, it will print the following message:
