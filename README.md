@@ -68,3 +68,10 @@ optional arguments:
   --host HOST, -H HOST
   --port PORT, -p PORT
 ```
+
+When you run the `webhook-receiver`, it will print the following message:
+```bash
+======== Running on http://0.0.0.0:8080 ========
+(Press CTRL+C to quit)
+```
+Copy th printed address (in this case `http://0.0.0.0:8080`) and pass it to a ACA-Py instance as the `--webhook-url` argument. All webhook requests made by ACA-Py will now be directed towards the webhook-receiver.
