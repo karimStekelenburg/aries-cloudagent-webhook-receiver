@@ -7,24 +7,31 @@ import asyncio
 import os
 
 import aiohttp
+import argparse
 
-HOST = os.getenv('HOST', '0.0.0.0')
-PORT = int(os.getenv('PORT', 8080))
 
-URL = f'http://{HOST}:{PORT}/ws'
+parser = argparse.ArgumentParser(
+    prog='test-ws-client',
+    description="collects and cache's aca-py webhook calls until requested by controller."
+    )
 
+parser.add_argument('API_KEY', help='the API key to use')
+parser.add_argument('--host', '-H', action='store', default='0.0.0.0')
+parser.add_argument('--port', '-p', action='store', default=8080)
+args = parser.parse_args()
+print(args)
+URL = f'http://{args.host}:{args.port}/ws'
 
 async def main():
-    session = aiohttp.ClientSession()
+    session = aiohttp.ClientSession(headers={"Authorization": args.API_KEY})
     async with session.ws_connect(URL) as ws:
-
         async for msg in ws:
             print('Message received from server:')
             print(msg)
             print()
         print('done')
 
-async def prompt_and_send(ws):
+async def prompt_
     new_msg_to_send = input('Type a message to send to the server: ')
     if new_msg_to_send == 'exit':
         print('Exiting!')
