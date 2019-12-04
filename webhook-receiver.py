@@ -5,6 +5,7 @@ import asyncio
 import aiohttp
 from aiohttp import web
 import json
+import logging
 
 app = web.Application()
 app.msg_queue = asyncio.Queue()
@@ -58,7 +59,7 @@ async def present_proofs_handler(request):
     await request.app.msg_queue.put(msg)
     return web.Response(status=200)
 
-@routes.get('/new_messages')
+@routes.get('/')
 async def new_messages_handler(request):
     response = []
     while not request.app.msg_queue.empty():
@@ -67,8 +68,7 @@ async def new_messages_handler(request):
 
     return web.Response(body=json.dumps(response))
 
-app.add_routes(routes)  # add routes
-app.add_routes([web.get('/ws', on_ws_connection)])  # add webdocket route
+
 
 
 if __name__ == '__main__':
@@ -79,12 +79,32 @@ if __name__ == '__main__':
         description="collects and cache's aca-py webhook calls until requested by controller."
         )
     parser.add_argument(
-        '-c', '--collect',
+        '-w', '--websocket',
         action='store_true',
-        help='test'
+        help='when passed, it will expose a websocket interface at http://HOST:PORT/ws'
+     )
+    parser.add_argument(
+        '-l', '--log',
+        action='store',
+        choices=['CRITICAL', 'ERROR', 'WARNING', 'INFO', 'DEBUG'],
+        help='the log level'
      )
     parser.add_argument('--host', '-H', action='store', default='0.0.0.0')
     parser.add_argument('--port', '-p', action='store', default=8080)
 
     args = parser.parse_args()
+
+
+    app.add_routes(routes)  # add routes
+
+    logging.basicConfig(level=args.log, format='%(levelname)s - %(message)s')
+
+    logging.info('log level set to {loglevel}'.format(loglevel=args.log))
+
+    if args.websocket:
+        logging.info('started websocket at /ws')
+        app.add_routes([web.get('/ws', on_ws_connection)])  # add webdocket route
+    else:
+        logging.info('omitting websocket setup')
+
     web.run_app(app, host=args.host, port=args.port)
