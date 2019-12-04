@@ -6,8 +6,6 @@ import aiohttp
 from aiohttp import web
 import json
 
-from webhookprocessor import Message
-
 app = web.Application()
 app.msg_queue = asyncio.Queue()
 routes = web.RouteTableDef()
