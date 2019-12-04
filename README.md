@@ -14,7 +14,7 @@ Whenever a client opens a websocket connection, **all** in-memory messages that 
 The `docker-compose.yml` file contains a Alice - Faber test setup where both Alice and Faber have their own Webhook Receiver instance. Just run:
 ```bash
 docker-compose build
-docker-compose run
+docker-compose up -d
 # and when you're done
 docker-compose down
 ```
