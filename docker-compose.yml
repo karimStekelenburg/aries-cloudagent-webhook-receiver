@@ -43,14 +43,13 @@ services:
                 "--auto-accept-requests"
                 ]
   faber-webhook-receiver:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    from: docker.pkg.github.com/karimstekelenburg/aries-cloudagent-webhook-receiver/latest:master
     ports: 
       - 7080:8080
     expose: 
       - 8080
   alice-webhook-receiver:
+    from: docker.pkg.github.com/karimstekelenburg/aries-cloudagent-webhook-receiver/latest:master
     build:
       context: .
       dockerfile: Dockerfile
