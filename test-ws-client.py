@@ -9,7 +9,6 @@ import os
 import aiohttp
 import argparse
 
-
 parser = argparse.ArgumentParser(
     prog='test-ws-client',
     description="collects and cache's aca-py webhook calls until requested by controller."
@@ -19,7 +18,7 @@ parser.add_argument('API_KEY', help='the API key to use')
 parser.add_argument('--host', '-H', action='store', default='0.0.0.0')
 parser.add_argument('--port', '-p', action='store', default=8080)
 args = parser.parse_args()
-print(args)
+
 URL = f'http://{args.host}:{args.port}/ws'
 
 async def main():
@@ -30,13 +29,6 @@ async def main():
             print(msg)
             print()
         print('done')
-
-async def prompt_
-    new_msg_to_send = input('Type a message to send to the server: ')
-    if new_msg_to_send == 'exit':
-        print('Exiting!')
-        raise SystemExit(0)
-    await ws.send_str(new_msg_to_send)
 
 
 if __name__ == '__main__':
