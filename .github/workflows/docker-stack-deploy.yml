@@ -1,0 +1,21 @@
+name: Python application
+
+
+
+on: [push]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Docker Swarm Deploy
+        uses: sagebind/docker-swarm-deploy-action@1.0.0
+        env: 
+          DOCKER_REMOTE_HOST: "ssh://user@myswarm.com"
+          DOCKER_SSH_PRIVATE_KEY: "{secret.DOCKER_SSH_PRIVATE_KEY}"
+          DOCKER_SSH_PUBLIC_KEY: "{secret.DOCKER_SSH_PUBLIC_KEY}"
+        with:
+          args: "stack deploy --compose-file stack.yaml coolapp"
+
+
+        
