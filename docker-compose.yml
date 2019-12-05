@@ -43,13 +43,17 @@ services:
                 "--auto-accept-requests"
                 ]
   faber-webhook-receiver:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports: 
       - 7080:8080
     expose: 
       - 8080
   alice-webhook-receiver:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports: 
       - 8080:8080
     expose: 
