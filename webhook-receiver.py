@@ -18,11 +18,6 @@ parser = argparse.ArgumentParser(
     description="collects and cache's aca-py webhook calls until requested by controller."
     )
 parser.add_argument(
-    '-w', '--websocket',
-    action='store_true',
-    help='when passed, it will expose a websocket interface at http://HOST:PORT/ws'
-    )
-parser.add_argument(
     '-l', '--log',
     action='store',
     choices=['CRITICAL', 'ERROR', 'WARNING', 'INFO', 'DEBUG'],
@@ -41,8 +36,20 @@ parser.add_argument(
     help='if passed, no API key will be generated and the --api-key flag will be ignored.'
 )
 
-parser.add_argument('--host', '-H', action='store', default='0.0.0.0')
-parser.add_argument('--port', '-p', action='store', default=8080)
+parser.add_argument(
+    '--host',
+    '-H', 
+    action='store', 
+    default='0.0.0.0',
+    help='the host the receiver will run on'
+    )
+parser.add_argument(
+    '--port', 
+    '-p', 
+    action='store', 
+    default=8080,
+    help='the port the receiver will run on'
+    )
 args = parser.parse_args()
 
 
@@ -114,26 +121,22 @@ async def new_messages_handler(request):
 
 if __name__ == '__main__':
 
-
     logging.basicConfig(level=args.log, format='%(levelname)s - %(message)s')
-    logging.info(f'log level:\t\t{args.log}')
+    logging.info(f'log level: {args.log}')
 
     app.add_routes(routes)  # add routes
 
-    if (args.api_key is None) and (args.insecure_mode is False):
-        args.api_key = str(uuid4())
-        logging.info('no api-key provided, generating one..')
 
-    if args.websocket:
-        app.add_routes([web.get('/ws', on_ws_connection)])  # add webdocket route
-        logging.info(f'websocket enabled at:\tws://{args.host}:{args.port}/ws')
-
-    if not args.insecure_mode:
-        logging.info(f'API Key:\t\t\t{args.api_key}')
+    if args.insecure_mode is False:
+        if args.api_key is None:
+            args.api_key = str(uuid4())
+            logging.info('both the --api-key and --insecure-mode flags are not provided')
+            logging.info(f'generated api key: {args.api_key}')
     else:
-        logging.warning('running insecure mode')
+        logging.warning('running in insecure mode, don\'t use this in production!')
+    
+    logging.info(f'ws exposed at: ws://{args.host}:{args.port}/ws')
 
-
-
+    app.add_routes([web.get('/ws', on_ws_connection)])  # add webdocket route
 
     web.run_app(app, host=args.host, port=args.port)
