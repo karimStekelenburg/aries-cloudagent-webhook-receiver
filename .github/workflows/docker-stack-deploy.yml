@@ -1,27 +1,17 @@
-# name: Publish Docker
-# on: [push]
-# jobs:
-#   publish-package:
-#     runs-on: ubuntu-latest
-#     steps:
-#     - uses: actions/checkout@master
-#     - name: Publish to Registry
-#       uses: elgohr/Publish-Docker-Github-Action@master
-#       with:
-#           name: karimstekelenburg/aries-cloudagent-webhook-receiver/aca-wr
-#           username: ${{ secrets.DOCKER_USERNAME }}
-#           password: ${{ secrets.DOCKER_PASSWORD }}
-#           registry: docker.pkg.github.com
-#   deploy:
-#     runs-on: ubuntu-latest
-#     env:
-#       DOCKER_REMOTE_HOST: "ssh://user@myswarm.com"
-#       DOCKER_SSH_PRIVATE_KEY: ""
-#       DOCKER_SSH_PUBLIC_KEY: ""
+name: remote ssh command
+on: [push]
+jobs:
 
-#     steps:
-#       - uses: "sagebind/docker-swarm-deploy-action@master"
-
-
-#     secrets = ["DOCKER_SSH_PRIVATE_KEY", "DOCKER_SSH_PUBLIC_KEY"]
-#     args = "stack deploy --compose-file stack.yaml coolapp"
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+  - name: executing remote ssh commands using ssh key
+    uses: appleboy/ssh-action@master
+    with:
+      host: ${{ secrets.HOST }}
+      username: ${{ secrets.USERNAME }}
+      key: ${{ secrets.KEY }}
+      port: ${{ secrets.PORT }}
+      script: |
+        echo 'yeaaaaaahhh'
