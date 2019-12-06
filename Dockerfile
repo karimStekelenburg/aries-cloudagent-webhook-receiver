@@ -7,4 +7,4 @@ COPY ./webhook-receiver.py .
 
 EXPOSE 8080
 
-ENTRYPOINT ["python", "-u", "./webhook-receiver.py", "-w" ]
+ENTRYPOINT ["python", "-u", "./webhook-receiver.py", "-w", "--insecure-mode" ]
