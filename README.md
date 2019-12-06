@@ -25,12 +25,12 @@ You can now connect to the various components through the following adresses:
 **Alice**
 Swagger UI: `http://127.0.0.1:8002`
 Webhook Receiver (get new messages): `http://127.0.0.1:8080/new_messages`
-Webhook Receiver (websocket): `http://127.0.0.1:8080/ws`
+Webhook Receiver (websocket): `ws://127.0.0.1:8080/ws`
 
 **Faber**
 Swagger UI: `http://127.0.0.1:7002`
 Webhook Receiver (get new messages): `http://127.0.0.1:7080/new_messages`
-Webhook Receiver (websocket): `http://127.0.0.1:7080/ws`
+Webhook Receiver (websocket): `ws://127.0.0.1:7080/ws`
 
 ### Docker
 If you prefer a single container version.
@@ -65,7 +65,7 @@ collects and cache's aca-py webhook calls until requested by controller.
 optional arguments:
   -h, --help            show this help message and exit
   -w, --websocket       when passed, it will expose a websocket interface at
-                        http://HOST:PORT/ws
+                        ws://HOST:PORT/ws
   -l {CRITICAL,ERROR,WARNING,INFO,DEBUG}, --log {CRITICAL,ERROR,WARNING,INFO,DEBUG}
                         the log level
   --api-key API_KEY     if passed, this will be used as the API key. (one will

@@ -19,7 +19,7 @@ parser.add_argument('--host', '-H', action='store', default='0.0.0.0')
 parser.add_argument('--port', '-p', action='store', default=8080)
 args = parser.parse_args()
 
-URL = f'http://{args.host}:{args.port}/ws'
+URL = f'ws://{args.host}:{args.port}/ws'
 
 async def main():
     session = aiohttp.ClientSession(headers={"Authorization": args.API_KEY})
